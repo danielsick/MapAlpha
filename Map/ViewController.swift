@@ -5,7 +5,7 @@
 //  Created by mojado on 21.05.16.
 //  Copyright © 2016 mojado. All rights reserved.
 // 
-// Bei 20 Minuten im Video weiter machen
+
 
 
 
@@ -13,6 +13,7 @@
 
 import UIKit
 import MapKit
+
 
 class ViewController: UIViewController, CLLocationManagerDelegate {
 
@@ -27,6 +28,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        var timer = NSTimer.scheduledTimerWithTimeInterval(15.0, target: self, selector: "update15sec",userInfo: nil, repeats: true)
+        
+        
         coreLocationManager.delegate = self
         
         locationManager = LocationManager.sharedInstance
@@ -38,10 +42,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             
             if NSBundle.mainBundle().objectForInfoDictionaryKey("NSLocationAlwaysUsageDescription") != nil {
                 coreLocationManager.requestAlwaysAuthorization()
-            }else{
+            }
+            else
+            {
                 print("No description provided")
             }
-        }else{
+        }
+        else
+        {
             getLocation()
         }
     }
@@ -61,7 +69,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         annotation.coordinate = locationPinCoord
         
         mapView.addAnnotation(annotation)
-        mapView.showAnnotations([annotation], animated: true)
+        mapView.showAnnotations([annotation], animated: true)	
     
     
        locationManager.reverseGeocodeLocationWithCoordinates(location) { (reverseGecodeInfo, placemark, error ) -> Void in
@@ -85,14 +93,18 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         getLocation()
         
     }
-    
-    
-    
+    func update15sec()
+    {
+        getLocation()
+        
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
 
 
 }
